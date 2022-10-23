@@ -1,0 +1,42 @@
+{
+  "name": "yylh/timing-wheel",
+  "description": "Basically this package provides a timing-wheel process for hyperf",
+  "license": "MIT",
+  "keywords": [
+    "timing-wheel",
+    "circular-array",
+    "process",
+    "timer",
+    "hyperf"
+  ],
+  "authors": [
+    {
+      "name": "al",
+      "email": "alwayslinger@163.com"
+    }
+  ],
+  "require": {
+    "hyperf/process": "^2.2",
+    "hyperf/event": "^2.2",
+    "hyperf/framework": "^2.2",
+    "hyperf/di": "^2.2",
+    "hyperf/config-nacos": "^2.2",
+    "hyperf/exception-handler": "^2.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "Al\\TimingWheel\\": "src/"
+    },
+    "files": [
+      "./src/helpers.php"
+    ]
+  },
+  "extra": {
+    "hyperf": {
+      "config": "Al\\TimingWheel\\ConfigProvider"
+    }
+  },
+  "require-dev": {
+    "swoole/ide-helper": "^4.8"
+  }
+}
