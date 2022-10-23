@@ -125,8 +125,7 @@ class TaskTimingWheel extends CircularArray
             !in_array($name, $this->delList),
             function ($reserved) use ($taskList, $name) {
                 if (!$reserved) {
-                    unset($this->delList[$name]);
-                    unset($taskList[$name]);
+                    unset($this->delList[$name], $taskList[$name]);
                     $this->setSlot($taskList);
                 }
             }
