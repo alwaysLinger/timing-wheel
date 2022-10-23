@@ -40,7 +40,7 @@ class StreamPacker implements PackerInterface
 
     /**
      * @param string $buffer
-     * @return array [operate, header, payload]
+     * @return array [operate, payload]
      */
     public function unpack(string $buffer): array
     {
@@ -59,7 +59,6 @@ class StreamPacker implements PackerInterface
                         $message['operate'],
                         strlen($serialized)
                     ) . $serialized,
-                // json_encode($message['payload'], JSON_UNESCAPED_UNICODE)
                 json_encode($message, JSON_UNESCAPED_UNICODE)
             );
         }

@@ -22,10 +22,10 @@ class ConfigProvider
             ],
             'publish' => [
                 [
-                    'id' => 'timing_wheel',
+                    'id' => 'timing-wheel',
                     'description' => 'The config for single-flight.',
                     'source' => __DIR__ . '/../publish/timing-wheel.php',
-                    'destination' => BASE_PATH . '/config/autoload/timing_wheel.php',
+                    'destination' => BASE_PATH . '/config/autoload/timing-wheel.php',
                 ],
             ],
         ];
