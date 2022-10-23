@@ -114,11 +114,12 @@ class BarClass
 
 ```
 1、annotation timing-wheel task support
-2、task manager implement
-3、coroutine server support
-4、more thorough tasks exceptions handle
-5、more callables type support
-6、some task execution events
-7、convenient method to inspect the timing-wheel process
-8、specific signal handler
+2、php8 support
+3、task manager implement
+4、coroutine server support
+5、more thorough tasks exceptions handle
+6、more callables type support
+7、some task execution events
+8、convenient method to inspect the timing-wheel process
+9、specific signal handler
 ```

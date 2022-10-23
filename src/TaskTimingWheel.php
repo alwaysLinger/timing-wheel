@@ -2,16 +2,6 @@
 
 namespace Al\TimingWheel;
 
-// use function Opis\Closure\{serialize as s, unserialize as u};
-// use Some\Namespace{
-//     Class1,
-//     SubNamesace\Class2,
-//     Class3 as T
-// };
-// use function OtherNS{
-//     f1,
-//     Sub\f2 as function2
-// };
 use Al\TimingWheel\Utils\CircularArray;
 use Hyperf\Contract\StdoutLoggerInterface;
 use Hyperf\ExceptionHandler\Formatter\FormatterInterface;

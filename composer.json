@@ -16,6 +16,7 @@
     }
   ],
   "require": {
+    "php": "7.4.*",
     "hyperf/process": "^2.2",
     "hyperf/event": "^2.2",
     "hyperf/framework": "^2.2",
