@@ -13,7 +13,7 @@ php bin/hyperf.php vendor:publish yylh/timing-wheel
 
 ## USAGE
 
-```
+```php
 # method got invoked after the worker.0 start
 /**
  * @DelayInvoke()
