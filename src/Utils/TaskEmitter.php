@@ -3,23 +3,24 @@
 namespace Al\TimingWheel\Utils;
 
 use Al\TimingWheel\Contract\PackerInterface;
-use Al\TimingWheel\Exception\NoTimingWheelProcessException;
 use Hyperf\Utils\ApplicationContext;
-use Swoole\Process;
 
 class TaskEmitter
 {
-    public static function sendTask(array $tasks): bool
+    public static $sendTimeout = 5.0;
+
+    public static function setSendTimeout(float $timeout)
     {
-        /** @var Process $manager */
-        $manager = tap(
-            ProcessManager::getProcess(),
-            fn($process) => throw_unless($process, NoTimingWheelProcessException::class)
-        );
+        static::$sendTimeout = $timeout;
+    }
+
+    public static function sendTask($tasks): bool
+    {
+        $tasks = optional($tasks)->toArray() ?: $tasks;
 
         $packer = ApplicationContext::getContainer()->get(PackerInterface::class);
         $messages = $packer->pack($tasks);
 
-        return (bool)$manager->exportSocket()->send($messages, 5);
+        return (bool)ProcessManager::getProcess()->exportSocket()->send($messages, static::$sendTimeout);
     }
 }

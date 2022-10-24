@@ -84,24 +84,25 @@ class TaskTimingWheel extends CircularArray
 
     private function runTasks()
     {
-        $taskList = $this->current() ?: [];
+        $taskList = $this->getSlotTasks();
         foreach ($taskList as $name => $task) {
-            $this->runTask($taskList, $name, $task);
+            $this->runTask($name, $task);
         }
 
         $this->next();
     }
 
-    private function runTask(array $taskList, string $name, Task $task)
+    private function runTask(string $name, Task $task)
     {
-        if ($this->shouldRun($taskList, $name, $task)) {
-            go(function () use ($taskList, $name, $task) {
+        if ($this->shouldRun($name, $task)) {
+            go(function () use ($name, $task) {
                 try {
                     $task->run();
                 } catch (\Throwable $th) {
                     $formatter = $this->container->get(FormatterInterface::class);
                     $this->container->get(StdoutLoggerInterface::class)->error($formatter->format($th));
                 } finally {
+                    $taskList = $this->getSlotTasks();
                     unset($taskList[$name]);
                     $this->setSlot($taskList);
                 }
@@ -109,9 +110,14 @@ class TaskTimingWheel extends CircularArray
         }
     }
 
-    protected function shouldRun(array $taskList, string $name, Task $task): bool
+    protected function getSlotTasks(?int $slot = null): array
     {
-        return $this->doDelTask($taskList, $name) && $this->taskTermDue($task);
+        return (array)(is_null($slot) ? $this->current() : $this[$slot]);
+    }
+
+    protected function shouldRun(string $name, Task $task): bool
+    {
+        return $this->doDelTask($name) && $this->taskTermDue($task);
     }
 
     private function setSlot(array $taskList, ?int $slot = null)
@@ -119,12 +125,13 @@ class TaskTimingWheel extends CircularArray
         $this[$slot ?? $this->key()] = $taskList;
     }
 
-    private function doDelTask(array $taskList, string $name): bool
+    private function doDelTask(string $name): bool
     {
         return tap(
             !in_array($name, $this->delList),
-            function ($reserved) use ($taskList, $name) {
+            function ($reserved) use ($name) {
                 if (!$reserved) {
+                    $taskList = $this->getSlotTasks();
                     unset($this->delList[$name], $taskList[$name]);
                     $this->setSlot($taskList);
                 }

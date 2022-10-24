@@ -49,6 +49,7 @@ abstract class AbstractProcess extends HyperfAbstractProcess
                 $this->closeSocket();
                 $this->event && $this->event->dispatch(new AfterProcessHandle($this, 0));
 
+                ProcessManager::clear();
                 Timer::clearAll();
                 CoordinatorManager::until(Constants::WORKER_EXIT)->resume();
                 sleep($this->restartInterval);

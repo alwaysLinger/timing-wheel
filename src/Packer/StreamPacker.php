@@ -3,7 +3,7 @@
 namespace Al\TimingWheel\Packer;
 
 use Al\TimingWheel\Contract\PackerInterface;
-use Al\TimingWheel\Exception\UnacceptedMessagesException;
+use Al\TimingWheel\Exception\UnAcceptedMessagesException;
 use Al\TimingWheel\PackerConfig;
 
 class StreamPacker implements PackerInterface
@@ -77,7 +77,7 @@ class StreamPacker implements PackerInterface
             $message,
             fn($message) => throw_unless(
                 array_key_exists('operate', $message) && array_key_exists('payload', $message),
-                UnacceptedMessagesException::class,
+                UnAcceptedMessagesException::class,
             )
         ), $messages);
     }

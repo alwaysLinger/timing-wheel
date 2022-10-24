@@ -2,9 +2,9 @@
 
 namespace Al\TimingWheel\Exception;
 
-class UnacceptedMessagesException extends \InvalidArgumentException
+class UnAcceptedMessagesException extends \InvalidArgumentException
 {
-    public function __construct($message = "", $code = 0, Throwable $previous = null)
+    public function __construct($message = "", $code = 0, \Throwable $previous = null)
     {
         parent::__construct($message ?: 'Invalid messages argument for a packer', $code, $previous);
     }

@@ -2,6 +2,7 @@
 
 namespace Al\TimingWheel\Utils;
 
+use Al\TimingWheel\Exception\ProcessNotFoundException;
 use Al\TimingWheel\TimingWheelManager;
 use Hyperf\Utils\Traits\Container;
 use Swoole\Process;
@@ -17,6 +18,9 @@ class ProcessManager
 
     public static function getProcess(): Process
     {
-        return static::get(TimingWheelManager::Process_Name);
+        return tap(
+            static::get(TimingWheelManager::Process_Name),
+            fn($process) => throw_unless($process, ProcessNotFoundException::class)
+        );
     }
 }
