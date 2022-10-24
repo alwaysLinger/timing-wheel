@@ -21,7 +21,7 @@ if (!function_exists('throw_unless')) {
 }
 
 if (!function_exists('send_tasks')) {
-    function send_tasks(array $tasks): bool
+    function send_tasks($tasks): bool
     {
         return TaskEmitter::sendTask($tasks);
     }
